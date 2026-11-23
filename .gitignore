@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build outputs
+dist/
+build/
+target/
+*.class
+*.jar
+*.war
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Logs
+logs/
+*.log
+errors.log
+
+# IDE & System
+.idea/
+.vscode/
+*.iml
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Java build
+*.class
+out/
+
+# Vite cache
+.vite/
+
+# Legacy frontend (junction link - not source)
+legacy_frontend/
+
+artifacts
+scratch
+
