@@ -2,6 +2,7 @@ package com.transcage;
 
 import com.transcage.helpers.ResponseHelper;
 import com.transcage.routes.AuthRoutes;
+import com.transcage.routes.ClerkRoutes;
 import com.transcage.routes.CustomerRoutes;
 import com.transcage.routes.TrackRoutes;
 import io.javalin.Javalin;
@@ -47,6 +48,7 @@ public class Main {
         AuthRoutes.register(app);
         TrackRoutes.register(app);
         CustomerRoutes.register(app);
+        ClerkRoutes.register(app);
 
         // ── 404 fallback ─────────────────────────────────────────────────────────
         app.error(404, ctx -> ResponseHelper.notFound(ctx, "Resource not found"));

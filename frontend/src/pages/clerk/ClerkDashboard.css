@@ -1,0 +1,301 @@
+/* ==========================================================================
+   Transcage — Clerk Dashboard Styles
+   ========================================================================== */
+
+/* ─── Toolbar ─────────────────────────────────────────────────────────────── */
+.clerk-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.clerk-search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.clerk-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-subtle);
+  pointer-events: none;
+}
+
+.clerk-search-input {
+  width: 100%;
+  padding: 9px 14px 9px 36px;
+  font-size: 13.5px;
+  font-family: var(--font-body);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: #fff;
+  color: var(--text-main);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.clerk-search-input:focus {
+  outline: none;
+  border-color: var(--tc-teal);
+  box-shadow: 0 0 0 3px var(--tc-teal-subtle);
+}
+
+/* ─── Filter tabs ─────────────────────────────────────────────────────────── */
+.clerk-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.clerk-filter-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: #fff;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.clerk-filter-tab:hover {
+  border-color: var(--tc-teal);
+  color: var(--tc-teal);
+}
+
+.clerk-filter-tab.active {
+  background: var(--tc-navy);
+  border-color: var(--tc-navy);
+  color: #fff;
+}
+
+.clerk-filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  background: rgba(255,255,255,0.18);
+  color: inherit;
+}
+
+.clerk-filter-tab:not(.active) .clerk-filter-count {
+  background: var(--bg-hover);
+  color: var(--text-subtle);
+}
+
+/* ─── Queue table ─────────────────────────────────────────────────────────── */
+.clerk-table-wrap {
+  background: #fff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.clerk-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.clerk-table thead tr {
+  background: var(--bg-app);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.clerk-table th {
+  padding: 11px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-subtle);
+  white-space: nowrap;
+}
+
+.clerk-table-row {
+  border-bottom: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.clerk-table-row:last-child { border-bottom: none; }
+.clerk-table-row:hover { background: var(--bg-hover); }
+
+.clerk-table td {
+  padding: 13px 16px;
+  vertical-align: middle;
+}
+
+.clerk-td-track {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--tc-navy);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+/* ─── Spin animation ─────────────────────────────────────────────────────── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.spin { animation: spin 0.9s linear infinite; }
+
+/* ─── Side panel overlay ──────────────────────────────────────────────────── */
+.clerk-panel-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 20, 60, 0.45);
+  backdrop-filter: blur(3px);
+  z-index: 200;
+  display: flex;
+  justify-content: flex-end;
+  animation: fadeIn 0.18s ease;
+}
+
+.clerk-panel {
+  width: 100%;
+  max-width: 460px;
+  height: 100%;
+  background: #FFFFFF;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -20px 0 60px rgba(0, 20, 60, 0.18);
+  animation: slideInRight 0.22s ease;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+.clerk-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-app);
+  flex-shrink: 0;
+}
+
+.clerk-panel-meta {
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.clerk-panel-meta-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.clerk-panel-meta-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-subtle);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.clerk-panel-meta-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tc-navy);
+  text-align: right;
+}
+
+.clerk-panel-actions {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.clerk-action-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  background: var(--bg-app);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.clerk-action-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--tc-navy);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ─── OTP display ─────────────────────────────────────────────────────────── */
+.clerk-otp-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px;
+  background: var(--tc-navy);
+  border-radius: var(--radius-md);
+  margin-top: 4px;
+}
+
+.clerk-otp-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.6);
+}
+
+.clerk-otp-code {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #FFFFFF;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .clerk-toolbar { flex-direction: column; align-items: stretch; }
+  .clerk-search-wrap { max-width: 100%; }
+  .clerk-panel { max-width: 100%; }
+  .clerk-table th:nth-child(3),
+  .clerk-table td:nth-child(3),
+  .clerk-table th:nth-child(5),
+  .clerk-table td:nth-child(5),
+  .clerk-table th:nth-child(6),
+  .clerk-table td:nth-child(6) { display: none; }
+}
