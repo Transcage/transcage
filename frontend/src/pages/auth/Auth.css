@@ -1,0 +1,244 @@
+/* Auth pages — 2-column layout: left hero panel, right form card */
+
+.auth-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  font-family: var(--font-body);
+}
+
+/* ─── Left navy hero column ─────────────────────────────────────────────── */
+.auth-hero {
+  width: 420px;
+  flex-shrink: 0;
+  background: var(--tc-navy);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 36px 40px 44px;
+  position: relative;
+  overflow: hidden;
+}
+.auth-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 110% 20%, rgba(0,136,184,.35) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at -10% 80%, rgba(0,184,212,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.auth-hero-logo { position: relative; z-index: 1; }
+.auth-hero-logo .tc-logo-wordmark { color: #fff; }
+.auth-hero-logo .tc-logo-wordmark span { color: var(--tc-cyan); }
+
+.auth-hero-body { position: relative; z-index: 1; }
+.auth-hero-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin-bottom: 14px;
+}
+.auth-hero-title span { color: var(--tc-cyan); }
+.auth-hero-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,.7);
+  line-height: 1.65;
+}
+.auth-hero-features {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 32px;
+}
+.auth-hero-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,.8);
+  font-weight: 500;
+}
+.auth-hero-feature-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--tc-cyan);
+  flex-shrink: 0;
+}
+.auth-hero-footer {
+  position: relative;
+  z-index: 1;
+  font-size: 12px;
+  color: rgba(255,255,255,.4);
+}
+
+/* ─── Right form column ──────────────────────────────────────────────────── */
+.auth-form-col {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  overflow-y: auto;
+  background: var(--bg-app);
+}
+.auth-form-card {
+  width: 100%;
+  max-width: 440px;
+  background: #fff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: 36px;
+}
+
+.auth-form-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--tc-navy);
+  margin-bottom: 4px;
+}
+.auth-form-subtitle {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+.auth-form-footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.auth-form-footer a {
+  color: var(--tc-teal);
+  font-weight: 700;
+  transition: color var(--transition-fast);
+}
+.auth-form-footer a:hover { color: var(--tc-teal-dark); }
+
+.auth-global-error {
+  background: var(--color-danger-light);
+  border: 1px solid rgba(239,68,68,.2);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #991B1B;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.auth-global-success {
+  background: var(--color-success-light);
+  border: 1px solid rgba(16,185,129,.2);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #065F46;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── Step indicators (register) ─────────────────────────────────────────── */
+.auth-steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 28px;
+}
+.auth-step {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+.auth-step-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--bg-hover);
+  border: 2px solid var(--border-strong);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+  z-index: 1;
+}
+.auth-step.active .auth-step-dot {
+  background: var(--tc-teal);
+  border-color: var(--tc-teal);
+  color: #fff;
+}
+.auth-step.done .auth-step-dot {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: #fff;
+}
+.auth-step-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-subtle);
+  margin-left: 7px;
+  white-space: nowrap;
+}
+.auth-step.active .auth-step-label { color: var(--tc-teal); }
+.auth-step.done  .auth-step-label  { color: var(--color-success); }
+.auth-step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--border-subtle);
+  margin: 0 6px;
+  transition: background var(--transition-base);
+}
+.auth-step.done + .auth-step .auth-step-line,
+.auth-step-line.done { background: var(--color-success); }
+
+/* ─── Role selector cards ────────────────────────────────────────────────── */
+.role-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.role-card {
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 16px 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  transition: all var(--transition-base);
+  background: #fff;
+}
+.role-card:hover { border-color: var(--tc-teal); background: var(--tc-teal-light); transform: translateY(-1px); }
+.role-card.selected { border-color: var(--tc-teal); background: var(--tc-teal-light); box-shadow: 0 0 0 3px var(--tc-teal-subtle); }
+.role-card-icon {
+  width: 42px; height: 42px;
+  border-radius: var(--radius-md);
+  background: var(--tc-navy-light);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--tc-navy);
+  transition: all var(--transition-fast);
+}
+.role-card.selected .role-card-icon { background: var(--tc-teal); color: #fff; }
+.role-card-label { font-size: 12.5px; font-weight: 700; color: var(--tc-navy); }
+.role-card-desc  { font-size: 11.5px; color: var(--text-muted); line-height: 1.4; }
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .auth-hero { display: none; }
+  .auth-form-col { padding: 20px 16px; align-items: flex-start; }
+  .auth-form-card { padding: 24px; box-shadow: none; border: none; border-radius: 0; background: transparent; }
+}
