@@ -1,0 +1,1 @@
+use npm create vite@latest .

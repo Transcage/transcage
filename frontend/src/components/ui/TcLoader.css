@@ -1,0 +1,184 @@
+/* ==========================================================================
+   Transcage Dedicated Animated Loader Stylesheet
+   ========================================================================== */
+
+.tc-loader-container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  user-select: none;
+  font-family: var(--font-body);
+  box-sizing: border-box;
+}
+
+/* ─── Fullscreen Overlay ─────────────────────────────────────────────────── */
+.tc-loader-fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease forwards;
+}
+
+.tc-loader-backdrop-blur {
+  background: rgba(244, 248, 250, 0.85);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+}
+
+.tc-loader-backdrop-dim {
+  background: rgba(0, 32, 80, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #FFFFFF;
+}
+
+.tc-loader-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 36px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  max-width: 360px;
+  width: 90%;
+  animation: slideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.tc-loader-backdrop-dim .tc-loader-card {
+  background: #002050;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+}
+
+/* ─── Kinetic Kinetic Stage / SVG ────────────────────────────────────────── */
+.tc-loader-stage {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.tc-loader-orbit-ring {
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--tc-teal);
+  border-right-color: var(--tc-cyan);
+  animation: spin 0.9s linear infinite;
+}
+
+.tc-loader-orbit-pulse {
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  background: var(--tc-teal-light);
+  animation: tsLoaderPulse 1.8s ease-in-out infinite;
+}
+
+.tc-loader-parcel-box {
+  width: 36px;
+  height: 36px;
+  z-index: 2;
+  animation: tsLoaderBob 2.2s ease-in-out infinite;
+}
+
+@keyframes tsLoaderPulse {
+
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 0.9;
+  }
+}
+
+@keyframes tsLoaderBob {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* ─── Loader Text & Subtext ──────────────────────────────────────────────── */
+.tc-loader-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--tc-navy);
+  margin-top: 6px;
+  letter-spacing: -0.01em;
+}
+
+.tc-loader-backdrop-dim .tc-loader-text {
+  color: #FFFFFF;
+}
+
+.tc-loader-subtext {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.tc-loader-backdrop-dim .tc-loader-subtext {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ─── Animated Loading Dots ──────────────────────────────────────────────── */
+.tc-loader-dots {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: 2px;
+}
+
+.tc-loader-dots span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: tsDotBounce 1.2s infinite ease-in-out;
+}
+
+.tc-loader-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.tc-loader-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes tsDotBounce {
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.3;
+  }
+
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
