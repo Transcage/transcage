@@ -3,8 +3,7 @@ package com.transcage.middleware;
 import com.transcage.helpers.JwtHelper;
 import com.transcage.helpers.ResponseHelper;
 import io.javalin.http.Context;
-import io.javalin.http.Handler;
-import org.bitbucket.b_c.jose4j.jwt.JwtClaims;
+import org.jose4j.jwt.JwtClaims;
 
 public class AuthMiddleware {
 

@@ -1,14 +1,11 @@
 package com.transcage.helpers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.http.Context;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ResponseHelper {
-
-    private static final ObjectMapper mapper = new ObjectMapper();
 
     public static void ok(Context ctx, String message, Object data) {
         Map<String, Object> body = new LinkedHashMap<>();

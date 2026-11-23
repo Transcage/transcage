@@ -1,6 +1,7 @@
 package com.transcage.routes;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.transcage.Database;
 import com.transcage.helpers.JwtHelper;
@@ -23,7 +24,7 @@ public class AuthRoutes {
         app.post("/api/v1/auth/register", ctx -> {
             Map<String, Object> body;
             try {
-                body = mapper.readValue(ctx.body(), Map.class);
+                body = mapper.readValue(ctx.body(), new TypeReference<Map<String, Object>>() {});
             } catch (Exception e) {
                 ResponseHelper.badRequest(ctx, "Invalid JSON body");
                 return;
@@ -128,7 +129,7 @@ public class AuthRoutes {
         app.post("/api/v1/auth/login", ctx -> {
             Map<String, Object> body;
             try {
-                body = mapper.readValue(ctx.body(), Map.class);
+                body = mapper.readValue(ctx.body(), new TypeReference<Map<String, Object>>() {});
             } catch (Exception e) {
                 ResponseHelper.badRequest(ctx, "Invalid JSON body");
                 return;

@@ -1,159 +1,204 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, AlertCircle, ArrowRight, Lock } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import './Auth.css';
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { loginWithCredentials } = useAuth();
+  const location = useLocation();
+  const { loginWithCredentials, loading, authError, setAuthError, isAuthenticated, activeRole } = useAuth();
 
-  const [form, setForm]       = useState({ identifier: '', password: '' });
-  const [showPass, setShowPass] = useState(false);
-  const [error, setError]     = useState('');
-  const [loading, setLoading] = useState(false);
+  const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
-  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
+  const from = location.state?.from?.pathname || null;
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (activeRole === 'PLATFORM_ADMIN') navigate('/admin', { replace: true });
+      else if (activeRole === 'STATION_STAFF') navigate('/station', { replace: true });
+      else if (activeRole === 'DRIVER') navigate('/driver', { replace: true });
+      else navigate('/app/shipments', { replace: true });
+    }
+  }, [isAuthenticated, activeRole, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    if (!form.identifier.trim()) { setError('Phone or email is required'); return; }
-    if (!form.password)           { setError('Password is required'); return; }
+    if (!identifier.trim() || !password) return;
 
-    setLoading(true);
-    const res = await loginWithCredentials(form.identifier.trim(), form.password);
-    setLoading(false);
-
-    if (res.success) {
-      const role = res.role;
+    const result = await loginWithCredentials(identifier.trim(), password);
+    if (result.success) {
+      if (from) {
+        navigate(from, { replace: true });
+        return;
+      }
+      const role = result.role;
       if (role === 'PLATFORM_ADMIN') navigate('/admin');
-      else if (role === 'STATION_CLERK' || role === 'OVERSEER' || role === 'COMPANY_ADMIN') navigate('/station');
+      else if (role === 'STATION_STAFF') navigate('/station');
       else if (role === 'DRIVER') navigate('/driver');
       else navigate('/app/shipments');
-    } else {
-      setError('Invalid phone/email or password.');
     }
   };
 
   return (
     <div className="auth-page">
-      {/* Left hero */}
-      <aside className="auth-hero">
-        <div className="auth-hero-logo">
-          <Link to="/" className="tc-logo">
-            <img src="/transcage_logo.png" alt="Transcage" className="tc-logo-img" />
-            <span className="tc-logo-wordmark">Trans<span>cage</span></span>
+      {/* Top Navbar */}
+      <header className="auth-nav">
+        <Link to="/" className="tc-logo">
+          <img src="/transcage_logo.png" alt="Transcage Logo" className="tc-logo-img" />
+          <span className="tc-logo-wordmark">Trans<span>cage</span></span>
+        </Link>
+
+        <div className="auth-nav-right">
+          <Link to="/" className="auth-nav-home-link">
+            Home
+          </Link>
+          <Link to="/register" className="tc-btn tc-btn-primary tc-btn-sm">
+            Create account
           </Link>
         </div>
-        <div className="auth-hero-body">
-          <h2 className="auth-hero-title">
-            Welcome back to<br /><span>Transcage</span>
-          </h2>
-          <p className="auth-hero-desc">
-            Log in to manage your parcels, track deliveries, and access your dashboard.
-          </p>
-          <div className="auth-hero-features">
-            {['OTP-secured parcel handovers', 'Real-time custody tracking', 'Multi-role dashboard access'].map(f => (
-              <div key={f} className="auth-hero-feature">
-                <div className="auth-hero-feature-dot" />
-                {f}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="auth-hero-footer">© 2026 Transcage · Ghana</div>
-      </aside>
+      </header>
 
-      {/* Right form */}
-      <div className="auth-form-col">
-        <div className="auth-form-card animate-fade-in">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-            <div style={{
-              width: 40, height: 40, borderRadius: 'var(--radius-md)',
-              background: 'var(--tc-teal-light)', display: 'flex', alignItems: 'center', justifyContent: 'center'
-            }}>
-              <Lock size={18} color="var(--tc-teal)" />
+      {/* Main Central Section */}
+      <main className="auth-main-wrap">
+        <div className="auth-card">
+          {/* Left Hero Column (Hidden on mobile) */}
+          <aside className="auth-left-col">
+            <div className="auth-left-content">
+              <span className="auth-hero-badge">FROM SENDER TO RECIPIENT</span>
+              <h2 className="auth-hero-heading">
+                Your verified <span>delivery awaits.</span>
+              </h2>
+              <p className="auth-hero-sub">
+                Send parcels across Ghana seamlessly, pay securely, and get verified OTP delivery right to the recipient.
+              </p>
             </div>
-            <div>
-              <h1 className="auth-form-title" style={{ fontSize: 20, marginBottom: 0 }}>Sign in</h1>
-            </div>
-          </div>
-          <p className="auth-form-subtitle">Enter your phone or email to continue</p>
 
-          {error && (
-            <div className="auth-global-error" id="login-error-msg">
-              <AlertCircle size={15} /> {error}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} noValidate>
-            <div className="tc-field-group">
-              <label htmlFor="login-identifier" className="tc-label">Phone or Email</label>
-              <input
-                id="login-identifier"
-                className="tc-input"
-                type="text"
-                placeholder="e.g. 024 000 0000 or you@email.com"
-                value={form.identifier}
-                onChange={set('identifier')}
-                autoComplete="username"
-                autoFocus
+            <div className="auth-hero-img-box">
+              <img
+                src="/transcage-hero.jpg"
+                alt="Transcage Verified Parcel Delivery Ghana"
+                className="auth-hero-img"
               />
             </div>
 
-            <div className="tc-field-group">
-              <label htmlFor="login-password" className="tc-label">
-                Password
-                <Link to="/forgot-password" style={{ fontSize: 12, color: 'var(--tc-teal)', fontWeight: 600 }}>
-                  Forgot password?
-                </Link>
-              </label>
-              <div style={{ position: 'relative' }}>
-                <input
-                  id="login-password"
-                  className="tc-input"
-                  type={showPass ? 'text' : 'password'}
-                  placeholder="Enter your password"
-                  value={form.password}
-                  onChange={set('password')}
-                  autoComplete="current-password"
-                  style={{ paddingRight: 44 }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPass(s => !s)}
-                  style={{
-                    position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)',
-                    color: 'var(--text-muted)', background: 'none', border: 'none', cursor: 'pointer', padding: 2
-                  }}
-                  tabIndex={-1}
-                  aria-label={showPass ? 'Hide password' : 'Show password'}
-                >
-                  {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
+            <div className="auth-pillars-row">
+              <div className="auth-pillar">
+                <span className="auth-pillar-title">Fast</span>
+                <span className="auth-pillar-desc">Courier Delivery</span>
+              </div>
+              <div className="auth-pillar">
+                <span className="auth-pillar-title">Secure</span>
+                <span className="auth-pillar-desc">OTP Handover</span>
+              </div>
+              <div className="auth-pillar">
+                <span className="auth-pillar-title">Live</span>
+                <span className="auth-pillar-desc">Order Tracking</span>
               </div>
             </div>
+          </aside>
 
-            <button
-              id="login-submit-btn"
-              type="submit"
-              className="tc-btn tc-btn-primary tc-btn-full tc-btn-lg"
-              disabled={loading}
-              style={{ marginTop: 8 }}
-            >
-              {loading ? 'Signing in…' : (
-                <><span>Sign in</span><ArrowRight size={16} /></>
-              )}
-            </button>
-          </form>
+          {/* Right Form Column */}
+          <section className="auth-right-col">
+            <div>
+              <div className="auth-eyebrow">WELCOME BACK</div>
+              <h1 className="auth-title">Sign in to your account</h1>
+            </div>
 
-          <div className="auth-form-footer">
-            Don't have an account?{' '}
-            <Link to="/register">Create account</Link>
+            {authError && (
+              <div className="auth-error-alert">
+                <AlertCircle size={18} style={{ flexShrink: 0, marginTop: 1 }} />
+                <span>{authError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="auth-form">
+              <div className="auth-field-box">
+                <div className="auth-field">
+                  <label className="auth-label">Phone number or email</label>
+                  <input
+                    type="text"
+                    className="auth-input"
+                    placeholder="0244 000 000 or you@email.com"
+                    value={identifier}
+                    onChange={(e) => {
+                      setIdentifier(e.target.value);
+                      if (authError) setAuthError(null);
+                    }}
+                    required
+                    autoFocus
+                  />
+                </div>
+
+                <div className="auth-field">
+                  <div className="auth-label-row">
+                    <label className="auth-label">Password</label>
+                    <button
+                      type="button"
+                      className="auth-forgot-link"
+                      onClick={() => alert('Password reset is available via your registered SMS phone.')}
+                    >
+                      Forgot?
+                    </button>
+                  </div>
+                  <div className="auth-input-wrap">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      className="auth-input"
+                      placeholder="••••••••"
+                      value={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                        if (authError) setAuthError(null);
+                      }}
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="auth-input-toggle"
+                      onClick={() => setShowPassword(!showPassword)}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="tc-btn tc-btn-primary auth-submit-btn"
+                disabled={loading}
+              >
+                <span>{loading ? 'Signing in...' : 'Sign in'}</span>
+              </button>
+            </form>
+
+            <div className="auth-bottom-switch">
+              Don't have an account?{' '}
+              <Link to="/register" className="auth-switch-link">
+                Create one
+              </Link>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      {/* Auth Page Footer */}
+      <footer className="auth-page-footer">
+        <div className="auth-page-footer-content">
+          <div>
+            © 2026 Transcage · From Sender to Recipient
+          </div>
+          <div className="auth-page-footer-right">
+            <Link to="/privacy" className="auth-page-footer-link">Privacy</Link>
+            <Link to="/terms" className="auth-page-footer-link">Terms</Link>
           </div>
         </div>
-      </div>
+      </footer>
     </div>
   );
 }
