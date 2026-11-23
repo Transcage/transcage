@@ -33,7 +33,7 @@ function PrivateRoute({ children, allowedRoles }) {
   if (allowedRoles && !allowedRoles.includes(activeRole)) {
     // Redirect to appropriate dashboard
     if (activeRole === 'PLATFORM_ADMIN') return <Navigate to="/admin" replace />;
-    if (activeRole === 'STATION_CLERK')  return <Navigate to="/station" replace />;
+    if (activeRole === 'STATION_CLERK' || activeRole === 'STATION_STAFF') return <Navigate to="/station" replace />;
     if (activeRole === 'DRIVER')         return <Navigate to="/driver" replace />;
     return <Navigate to="/app/shipments" replace />;
   }
@@ -46,7 +46,7 @@ function GuestRoute({ children }) {
   if (loading) return <AppLoader />;
   if (isAuthenticated) {
     if (activeRole === 'PLATFORM_ADMIN') return <Navigate to="/admin" replace />;
-    if (activeRole === 'STATION_CLERK')  return <Navigate to="/station" replace />;
+    if (activeRole === 'STATION_CLERK' || activeRole === 'STATION_STAFF') return <Navigate to="/station" replace />;
     if (activeRole === 'DRIVER')         return <Navigate to="/driver" replace />;
     return <Navigate to="/app/shipments" replace />;
   }
@@ -80,7 +80,7 @@ function AppRoutes() {
 
         {/* ── Station Clerk ──────────────────────────────────────────────── */}
         <Route path="/station/*" element={
-          <PrivateRoute allowedRoles={['STATION_CLERK','OVERSEER','COMPANY_ADMIN','PLATFORM_ADMIN']}>
+          <PrivateRoute allowedRoles={['STATION_CLERK','STATION_STAFF','OVERSEER','COMPANY_ADMIN','PLATFORM_ADMIN']}>
             <ClerkDashboard />
           </PrivateRoute>
         } />

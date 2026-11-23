@@ -50,6 +50,11 @@ export const CustomerAPI = {
   cancelShipment: (id, reason) => request('POST', `/customer/shipments/${id}/cancel`, { reason })
 };
 
+// ── Stations (public — for dropdowns) ────────────────────────────────────────
+export const StationAPI = {
+  list: () => request('GET', '/stations')
+};
+
 // ── Clerk ─────────────────────────────────────────────────────────────────────
 export const ClerkAPI = {
   getQueue:         ()         => request('GET',  '/clerk/queue'),

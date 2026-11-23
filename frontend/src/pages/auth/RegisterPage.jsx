@@ -25,16 +25,16 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const { registerUser } = useAuth();
 
-  const [step, setStep]       = useState(0);
-  const [form, setForm]       = useState({
+  const [step, setStep] = useState(0);
+  const [form, setForm] = useState({
     full_name: '', phone: '', email: '',
     role: 'CUSTOMER',
     password: '', confirm_password: ''
   });
-  const [showPass, setShowPass]    = useState(false);
+  const [showPass, setShowPass] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [error, setError]          = useState('');
-  const [loading, setLoading]      = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const set = (k) => (e) => { setError(''); setForm(f => ({ ...f, [k]: e.target.value })); };
   const setRole = (r) => setForm(f => ({ ...f, role: r }));
@@ -42,11 +42,11 @@ export default function RegisterPage() {
   const validateStep = () => {
     if (step === 0) {
       if (!form.full_name.trim()) { setError('Full name is required'); return false; }
-      if (!form.phone.trim())     { setError('Phone number is required'); return false; }
+      if (!form.phone.trim()) { setError('Phone number is required'); return false; }
     }
     if (step === 2) {
-      if (!form.password || form.password.length < 6)        { setError('Password must be at least 6 characters'); return false; }
-      if (form.password !== form.confirm_password)           { setError('Passwords do not match'); return false; }
+      if (!form.password || form.password.length < 6) { setError('Password must be at least 6 characters'); return false; }
+      if (form.password !== form.confirm_password) { setError('Passwords do not match'); return false; }
     }
     return true;
   };
@@ -60,10 +60,10 @@ export default function RegisterPage() {
     setLoading(true);
     const res = await registerUser({
       full_name: form.full_name.trim(),
-      phone:     form.phone.trim(),
-      email:     form.email.trim() || undefined,
-      role:      form.role,
-      password:  form.password
+      phone: form.phone.trim(),
+      email: form.email.trim() || undefined,
+      role: form.role,
+      password: form.password
     });
     setLoading(false);
     if (res.success) {
@@ -150,7 +150,7 @@ export default function RegisterPage() {
                   placeholder="you@example.com"
                   value={form.email} onChange={set('email')} />
               </div>
-              <button id="reg-next-identity" className="tc-btn tc-btn-primary tc-btn-full tc-btn-lg" onClick={next}>
+              <button id="reg-next-identity" className="tc-btn tc-btn-primary tc-btn-full " onClick={next}>
                 Continue <ArrowRight size={16} />
               </button>
             </div>
@@ -237,7 +237,7 @@ export default function RegisterPage() {
                 <button
                   id="reg-submit-btn"
                   type="submit"
-                  className="tc-btn tc-btn-primary tc-btn-lg"
+                  className="tc-btn tc-btn-primary "
                   style={{ flex: 1 }}
                   disabled={loading}
                 >

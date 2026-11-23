@@ -66,7 +66,7 @@ export default function LandingPage() {
             Send parcels with<br /><span>verified custody</span>
           </h1>
           <p className="lp-hero-desc">
-            Station-to-station intercity delivery and direct home-to-home P2P — 
+            Station-to-station intercity delivery and direct home-to-home P2P —
             every handover secured by OTP. Know exactly who has your parcel, always.
           </p>
 
@@ -147,7 +147,7 @@ export default function LandingPage() {
                 <div className="lp-mode-icon navy"><Building2 size={22} /></div>
                 <div className="lp-mode-title">Station-to-Station</div>
                 <div className="lp-mode-desc">
-                  Drop your parcel at any Transcage partner station. 
+                  Drop your parcel at any Transcage partner station.
                   It moves through our verified intercity relay network to the destination station for pickup.
                 </div>
               </div>
@@ -188,7 +188,7 @@ export default function LandingPage() {
           Join Transcage today — it only takes 2 minutes to create an account and book a delivery.
         </p>
         <div className="lp-cta-buttons">
-          <Link to="/register" className="tc-btn tc-btn-primary tc-btn-lg">
+          <Link to="/register" className="tc-btn tc-btn-primary ">
             Create Free Account <ArrowRight size={16} />
           </Link>
           <Link to="/track" className="tc-btn tc-btn-outline" style={{ color: 'rgba(255,255,255,.85)', borderColor: 'rgba(255,255,255,.3)' }}>
@@ -202,9 +202,9 @@ export default function LandingPage() {
         <div className="lp-footer-content">
           <div className="lp-footer-text">© 2026 Transcage · Ghana's verified parcel delivery network</div>
           <div className="lp-footer-links">
-            <Link to="/track"   className="lp-footer-link">Track</Link>
+            <Link to="/track" className="lp-footer-link">Track</Link>
             <Link to="/privacy" className="lp-footer-link">Privacy</Link>
-            <Link to="/terms"   className="lp-footer-link">Terms</Link>
+            <Link to="/terms" className="lp-footer-link">Terms</Link>
           </div>
         </div>
       </footer>
