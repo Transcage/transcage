@@ -1,0 +1,18 @@
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Silence verbose internal Jetty server & threadpool debug logs -->
+    <logger name="org.eclipse.jetty" level="INFO"/>
+    <logger name="io.javalin" level="INFO"/>
+
+    <!-- Transcage Application Logs -->
+    <logger name="com.transcage" level="INFO"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

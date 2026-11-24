@@ -266,11 +266,6 @@ textarea {
   border-radius: var(--radius-sm);
 }
 
-. {
-  padding: 13px 24px;
-  font-size: 15px;
-  border-radius: var(--radius-lg);
-}
 
 .tc-btn-icon {
   padding: 8px;

@@ -15,6 +15,11 @@ export default function LoginPage() {
 
   const from = location.state?.from?.pathname || null;
 
+  // Clear any previous error on visit
+  useEffect(() => {
+    setAuthError(null);
+  }, [setAuthError]);
+
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
@@ -128,7 +133,6 @@ export default function LoginPage() {
                       setIdentifier(e.target.value);
                       if (authError) setAuthError(null);
                     }}
-                    required
                     autoFocus
                   />
                 </div>
@@ -154,7 +158,6 @@ export default function LoginPage() {
                         setPassword(e.target.value);
                         if (authError) setAuthError(null);
                       }}
-                      required
                     />
                     <button
                       type="button"

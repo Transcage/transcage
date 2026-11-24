@@ -8,7 +8,7 @@ import './LandingPage.css';
 
 /* ─── Hero Slideshow (from legacy) ──────────────────────────────────────── */
 const SLIDES = [
-  { src: '/transcage-hero.jpg',    alt: 'Transcage Local P2P Delivery Ghana - Verified Courier Handover' },
+  { src: '/transcage-hero.jpg', alt: 'Transcage Local P2P Delivery Ghana - Verified Courier Handover' },
   { src: '/transcage-station.jpg', alt: 'Transcage Station-to-Station Coach Service - Terminal Scanning' }
 ];
 
@@ -43,10 +43,10 @@ function HeroSlideshow() {
 
 /* ─── Below-fold data ────────────────────────────────────────────────────── */
 const EXTRA_STEPS = [
-  { num: '01', title: 'Book Your Shipment',          desc: "Tell us what you're sending, where from, and where to. Choose station drop-off or home pickup." },
+  { num: '01', title: 'Book Your Shipment', desc: "Tell us what you're sending, where from, and where to. Choose station drop-off or home pickup." },
   { num: '02', title: 'Drop at Station / Driver Collects', desc: 'Drop your item at the nearest partner station, or a verified driver picks up from your location.' },
   { num: '03', title: 'OTP Handover at Every Point', desc: 'Every custody transfer requires a one-time code. Your parcel never disappears.' },
-  { num: '04', title: 'Real-time Tracking',          desc: "Track your parcel's exact status and custody chain live. Know who has it at every moment." }
+  { num: '04', title: 'Real-time Tracking', desc: "Track your parcel's exact status and custody chain live. Know who has it at every moment." }
 ];
 
 const STATION_FEATURES = [
@@ -64,17 +64,17 @@ const P2P_FEATURES = [
 ];
 
 const STATS = [
-  { num: '12+',  label: 'Partner Stations' },
-  { num: '100%', label: 'OTP-Verified'     },
-  { num: '24h',  label: 'Intercity SLA'    },
-  { num: 'GHS 0', label: 'Hidden Fees'     }
+  { num: '12+', label: 'Partner Stations' },
+  { num: '100%', label: 'OTP-Verified' },
+  { num: '24h', label: 'Intercity SLA' },
+  { num: 'GHS 0', label: 'Hidden Fees' }
 ];
 
 /* ─── Component ──────────────────────────────────────────────────────────── */
 export default function LandingPage() {
   const navigate = useNavigate();
   const [trackingCode, setTrackingCode] = useState('');
-  const [activeTab, setActiveTab]       = useState('hero');
+  const [activeTab, setActiveTab] = useState('hero');
 
   const handleTrackSubmit = (e) => {
     e.preventDefault();
@@ -302,7 +302,7 @@ export default function LandingPage() {
           Join Transcage today — it only takes 2 minutes to create an account and book a delivery.
         </p>
         <div className="lp-cta-buttons">
-          <Link to="/register" className="tc-btn tc-btn-primary tc-btn-lg">
+          <Link to="/register" className="tc-btn tc-btn-primary">
             Get Started Free <ArrowRight size={16} />
           </Link>
           <Link to="/login" style={{ color: 'rgba(255,255,255,.85)', borderColor: 'rgba(255,255,255,.3)' }}
@@ -318,7 +318,7 @@ export default function LandingPage() {
           <div>© 2026 Transcage · From Sender to Recipient</div>
           <div className="lp-footer-right">
             <Link to="/privacy" className="lp-footer-link">Privacy</Link>
-            <Link to="/terms"   className="lp-footer-link">Terms</Link>
+            <Link to="/terms" className="lp-footer-link">Terms</Link>
           </div>
         </div>
       </footer>

@@ -4,40 +4,65 @@ vendor/
 
 # Build outputs
 dist/
+dist-ssr/
 build/
 target/
+out/
 *.class
 *.jar
 *.war
+*.ear
 
-# Environment
+# Maven Wrapper exception - allow wrapper jar if present
+!.mvn/wrapper/maven-wrapper.jar
+!backend/.mvn/wrapper/maven-wrapper.jar
+
+# Environment files
 .env
+.env.*
 .env.local
-.env.production
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+!backend/.env.example
 
-# Logs
+# Logs and Crash Dumps
 logs/
 *.log
 errors.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+hs_err_pid*
+replay_pid*
 
-# IDE & System
+# IDE & Editor files
 .idea/
 .vscode/
 *.iml
+*.ipr
+*.iws
+*.swp
+*.swo
+*~
+
+# Operating System files
 Thumbs.db
-.DS_Store
+Thumbs.db:encryptable
+ehthumbs.db
 desktop.ini
+Desktop.ini
+.DS_Store
+.AppleDouble
+.LSOverride
 
-# Java build
-*.class
-out/
-
-# Vite cache
+# Vite cache & temp
 .vite/
 
-# Legacy frontend (junction link - not source)
+# Legacy / Local artifacts
 legacy_frontend/
-
-artifacts
-scratch
+artifacts/
+scratch/
 

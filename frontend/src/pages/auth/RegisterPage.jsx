@@ -167,7 +167,6 @@ export default function RegisterPage() {
                         setFullName(e.target.value);
                         if (localError) setLocalError('');
                       }}
-                      required
                       autoFocus
                     />
                   </div>
@@ -183,7 +182,6 @@ export default function RegisterPage() {
                         setPhone(e.target.value);
                         if (localError) setLocalError('');
                       }}
-                      required
                     />
                   </div>
                 </div>
@@ -269,7 +267,6 @@ export default function RegisterPage() {
                           setPassword(e.target.value);
                           if (localError) setLocalError('');
                         }}
-                        required
                         autoFocus
                       />
                       <button
@@ -294,7 +291,6 @@ export default function RegisterPage() {
                         setConfirmPassword(e.target.value);
                         if (localError) setLocalError('');
                       }}
-                      required
                     />
                   </div>
                 </div>

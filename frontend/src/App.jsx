@@ -27,8 +27,8 @@ function AppLoader() {
 
 // Guard: redirect to login if not authenticated
 function PrivateRoute({ children, allowedRoles }) {
-  const { isAuthenticated, activeRole, loading } = useAuth();
-  if (loading) return <AppLoader />;
+  const { isAuthenticated, activeRole, initializing } = useAuth();
+  if (initializing) return <AppLoader />;
   if (!isAuthenticated) return <Navigate to="/login" replace />;
   if (allowedRoles && !allowedRoles.includes(activeRole)) {
     // Redirect to appropriate dashboard
@@ -42,8 +42,8 @@ function PrivateRoute({ children, allowedRoles }) {
 
 // Guard: redirect away from login/register if already authenticated
 function GuestRoute({ children }) {
-  const { isAuthenticated, activeRole, loading } = useAuth();
-  if (loading) return <AppLoader />;
+  const { isAuthenticated, activeRole, initializing } = useAuth();
+  if (initializing) return <AppLoader />;
   if (isAuthenticated) {
     if (activeRole === 'PLATFORM_ADMIN') return <Navigate to="/admin" replace />;
     if (activeRole === 'STATION_CLERK' || activeRole === 'STATION_STAFF') return <Navigate to="/station" replace />;

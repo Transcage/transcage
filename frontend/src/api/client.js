@@ -24,9 +24,29 @@ async function request(method, path, body) {
     }
   };
   if (body) opts.body = JSON.stringify(body);
-  const res = await fetch(`${BASE}${path}`, opts);
-  const json = await res.json();
-  return json;
+  try {
+    const res = await fetch(`${BASE}${path}`, opts);
+    let json;
+    try {
+      json = await res.json();
+    } catch {
+      json = null;
+    }
+    if (!json) {
+      return {
+        success: false,
+        message: res.statusText || `Request failed (${res.status})`,
+        data: null
+      };
+    }
+    return json;
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message || 'Network error connecting to backend',
+      data: null
+    };
+  }
 }
 
 // ── Auth ─────────────────────────────────────────────────────────────────────

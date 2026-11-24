@@ -14,7 +14,7 @@ const CATEGORIES = [
 const STEPS = ['Delivery Type', 'Recipient', 'Parcel Details', 'Review'];
 
 function StepDot({ idx, current, total }) {
-  const done   = idx < current;
+  const done = idx < current;
   const active = idx === current;
   return (
     <div style={{ display: 'flex', alignItems: 'center', flex: idx < total - 1 ? 1 : 0 }}>
@@ -50,7 +50,7 @@ function FieldGroup({ label, required, children, hint, error }) {
         {required && <span style={{ color: 'var(--tc-teal)', fontSize: 11 }}> Required</span>}
       </label>
       {children}
-      {hint  && <span className="tc-hint">{hint}</span>}
+      {hint && <span className="tc-hint">{hint}</span>}
       {error && <span className="tc-error-text">{error}</span>}
     </div>
   );
@@ -66,9 +66,9 @@ export default function SendParcelPage() {
     origin_station_id: '', destination_station_id: '',
     origin_city: '', destination_city: ''
   });
-  const [stations, setStations]   = useState([]);
-  const [loadSt, setLoadSt]       = useState(false);
-  const [errors, setErrors]       = useState({});
+  const [stations, setStations] = useState([]);
+  const [loadSt, setLoadSt] = useState(false);
+  const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [globalError, setGlobalError] = useState('');
   const [done, setDone] = useState(null); // { tracking_number }
@@ -77,7 +77,7 @@ export default function SendParcelPage() {
     setLoadSt(true);
     StationAPI.list().then(res => {
       if (res.success && Array.isArray(res.data)) setStations(res.data);
-    }).catch(() => {}).finally(() => setLoadSt(false));
+    }).catch(() => { }).finally(() => setLoadSt(false));
   }, []);
 
   const set = (k) => (e) => {
@@ -92,7 +92,7 @@ export default function SendParcelPage() {
       if (!form.delivery_model) errs.delivery_model = 'Please choose a delivery type';
     }
     if (step === 1) {
-      if (!form.recipient_name.trim())  errs.recipient_name  = 'Recipient name is required';
+      if (!form.recipient_name.trim()) errs.recipient_name = 'Recipient name is required';
       if (!form.recipient_phone.trim()) errs.recipient_phone = 'Recipient phone is required';
       if (form.delivery_model === 'LOCAL_P2P' && !form.recipient_address.trim())
         errs.recipient_address = 'Delivery address is required for P2P';
@@ -100,10 +100,10 @@ export default function SendParcelPage() {
     if (step === 2) {
       if (!form.parcel_description.trim()) errs.parcel_description = 'Describe what you are sending';
       if (form.delivery_model === 'STATION_TO_STATION') {
-        if (!form.origin_station_id)      errs.origin_station_id      = 'Origin station is required';
+        if (!form.origin_station_id) errs.origin_station_id = 'Origin station is required';
         if (!form.destination_station_id) errs.destination_station_id = 'Destination station is required';
       } else {
-        if (!form.origin_city.trim())      errs.origin_city      = 'Pickup city is required';
+        if (!form.origin_city.trim()) errs.origin_city = 'Pickup city is required';
         if (!form.destination_city.trim()) errs.destination_city = 'Delivery city is required';
       }
     }
@@ -121,17 +121,17 @@ export default function SendParcelPage() {
     setSubmitting(true);
     setGlobalError('');
     const payload = {
-      delivery_model:         form.delivery_model,
-      recipient_name:         form.recipient_name,
-      recipient_phone:        form.recipient_phone,
-      recipient_address:      form.recipient_address || undefined,
-      parcel_description:     form.parcel_description,
-      parcel_category:        form.parcel_category   || undefined,
-      parcel_weight_kg:       form.parcel_weight_kg  ? parseFloat(form.parcel_weight_kg) : undefined,
-      origin_station_id:      form.origin_station_id      ? parseInt(form.origin_station_id)      : undefined,
+      delivery_model: form.delivery_model,
+      recipient_name: form.recipient_name,
+      recipient_phone: form.recipient_phone,
+      recipient_address: form.recipient_address || undefined,
+      parcel_description: form.parcel_description,
+      parcel_category: form.parcel_category || undefined,
+      parcel_weight_kg: form.parcel_weight_kg ? parseFloat(form.parcel_weight_kg) : undefined,
+      origin_station_id: form.origin_station_id ? parseInt(form.origin_station_id) : undefined,
       destination_station_id: form.destination_station_id ? parseInt(form.destination_station_id) : undefined,
-      origin_city:            form.origin_city      || undefined,
-      destination_city:       form.destination_city || undefined
+      origin_city: form.origin_city || undefined,
+      destination_city: form.destination_city || undefined
     };
     const res = await CustomerAPI.createShipment(payload);
     setSubmitting(false);
@@ -293,7 +293,7 @@ export default function SendParcelPage() {
               </div>
             )}
 
-            <button className="tc-btn tc-btn-primary tc-btn-full tc-btn-lg" onClick={next} disabled={!form.delivery_model}>
+            <button className="tc-btn tc-btn-primary tc-btn-full" onClick={next} disabled={!form.delivery_model}>
               Continue <ArrowRight size={15} />
             </button>
           </div>
@@ -436,7 +436,7 @@ export default function SendParcelPage() {
               </button>
               <button
                 id="send-parcel-submit-btn"
-                className="tc-btn tc-btn-primary tc-btn-lg"
+                className="tc-btn tc-btn-primary"
                 style={{ flex: 1 }}
                 onClick={handleSubmit}
                 disabled={submitting}

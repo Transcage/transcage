@@ -4,18 +4,19 @@ import { AuthAPI } from '../api/client';
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser]               = useState(null);
-  const [activeRole, setActiveRole]   = useState(null);
-  const [roles, setRoles]             = useState([]);
-  const [loading, setLoading]         = useState(true); // initial boot check
-  const [authError, setAuthError]     = useState(null);
+  const [user, setUser]                 = useState(null);
+  const [activeRole, setActiveRole]     = useState(null);
+  const [roles, setRoles]               = useState([]);
+  const [initializing, setInitializing] = useState(true); // initial boot session check
+  const [loading, setLoading]           = useState(false); // form action loading (login / register)
+  const [authError, setAuthError]       = useState(null);
 
   const isAuthenticated = !!user;
 
   // Boot: restore session from token
   useEffect(() => {
     const token = localStorage.getItem('tc_token');
-    if (!token) { setLoading(false); return; }
+    if (!token) { setInitializing(false); return; }
 
     AuthAPI.me().then(res => {
       if (res.success && res.data) {
@@ -26,7 +27,7 @@ export function AuthProvider({ children }) {
       }
     }).catch(() => {
       localStorage.removeItem('tc_token');
-    }).finally(() => setLoading(false));
+    }).finally(() => setInitializing(false));
   }, []);
 
   const loginWithCredentials = useCallback(async (identifier, password) => {
@@ -89,7 +90,7 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider value={{
       user, activeRole, roles, isAuthenticated,
-      loading, authError, setAuthError,
+      initializing, loading, authError, setAuthError,
       loginWithCredentials, registerUser, logout, switchRole
     }}>
       {children}
